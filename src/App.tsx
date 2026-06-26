@@ -5,8 +5,26 @@ import { SlideToUnlock } from './components/SlideToUnlock';
 import { Candle } from './components/Candle';
 import { Heart } from 'lucide-react';
 
+const photos = [
+  "/726372760_1347216294169729_6545730343122446355_n.jpg",
+  "/726231304_18132805030523458_7647939233125634733_n.jpg",
+  "/725152767_1670342510742314_6008780828361700485_n.jpg",
+  "/726470433_857747434072845_5982385260206823971_n.jpg",
+  "/724188469_2095981644661154_2593922594389682270_n copy.jpg"
+];
+
 export default function App() {
   const [stage, setStage] = useState(0);
+  const [photoIndex, setPhotoIndex] = useState(0);
+
+  useEffect(() => {
+    if (stage >= 3) {
+      const interval = setInterval(() => {
+        setPhotoIndex((prev) => (prev + 1) % photos.length);
+      }, 3500);
+      return () => clearInterval(interval);
+    }
+  }, [stage]);
 
   const handleUnlock = () => {
     setStage(1);
@@ -146,12 +164,19 @@ export default function App() {
               >
                 <div className="w-full bg-gray-200 rounded-lg overflow-hidden border border-gray-100 relative">
                   
-                  {/* Anu's Picture */}
-                  <img 
-                    src="/724188469_2095981644661154_2593922594389682270_n.jpg" 
-                    alt="Anu" 
-                    className="w-full h-auto block"
-                  />
+                  {/* Anu's Photo Carousel */}
+                  <AnimatePresence mode="wait">
+                    <motion.img 
+                      key={photoIndex}
+                      initial={{ opacity: 0, filter: 'blur(10px)' }}
+                      animate={{ opacity: 1, filter: 'blur(0px)' }}
+                      exit={{ opacity: 0, filter: 'blur(10px)' }}
+                      transition={{ duration: 1 }}
+                      src={photos[photoIndex]} 
+                      alt="Anu" 
+                      className="w-full h-auto block"
+                    />
+                  </AnimatePresence>
                   
                   <div className="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-lg pointer-events-none"></div>
                 </div>
