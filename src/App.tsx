@@ -175,7 +175,7 @@ export default function App() {
             className="absolute bottom-6 text-center w-full z-10"
           >
             <p className="text-gray-400 font-light text-sm tracking-widest uppercase flex items-center justify-center gap-2">
-              Made with <Heart className="w-3 h-3 text-red-500 fill-red-500" /> from Danny
+              Made with <Heart className="w-3 h-3 text-red-500 fill-red-500" /> from Sanju
             </p>
           </motion.div>
         )}

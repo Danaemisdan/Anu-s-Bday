@@ -32,7 +32,8 @@ export const SlideToUnlock = ({
   }, []);
 
   const onDragEnd = (_event: any, info: any) => {
-    if (info.offset.x > dragConstraint * 0.8) {
+    // Unlock if dragged more than 55% OR if swiped quickly to the right
+    if (info.offset.x > dragConstraint * 0.55 || info.velocity.x > 500) {
       setUnlocked(true);
       onUnlock();
     } else {
@@ -54,7 +55,7 @@ export const SlideToUnlock = ({
             dragElastic={0.1}
             style={{ x }}
             onDragEnd={onDragEnd}
-            className="absolute left-0 top-0 z-10 flex h-14 w-14 cursor-grab items-center justify-center rounded-full bg-gradient-to-br from-pink-500 to-purple-500 shadow-md active:cursor-grabbing hover:scale-105 transition-transform"
+            className="absolute left-0 top-0 z-10 flex h-14 w-14 cursor-grab items-center justify-center rounded-full bg-gradient-to-br from-pink-500 to-purple-500 shadow-md active:cursor-grabbing hover:scale-105 transition-transform touch-none"
           >
             <ChevronRight className="h-6 w-6 text-white" />
           </motion.div>
